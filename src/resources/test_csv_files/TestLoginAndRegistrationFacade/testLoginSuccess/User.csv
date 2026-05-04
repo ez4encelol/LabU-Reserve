@@ -1,0 +1,9 @@
+userId,username,password,email,universityAffiliated,verificationNum,userType,isDepartmentApproved
+1,,pass123,jsmith@university.ca,true,100234,STUDENT,false
+2,,alpha321,adoe@university.ca,true,100235,STUDENT,false
+3,,secure1,tech1@lab.ca,true,55012,RESEARCHER,false
+4,,teach789,lee@university.ca,true,22001,FACULTY,false
+5,,guest111,guest@email.com,false,0,GUEST,false
+6,,management1!,labmanager1@gmail.com,true,22,LABMANAGER,false
+7,,abcd1!,headlabcoordinator@gmail.com,true,33,HEADLABCOORDINATOR,false
+8,User,Wpass1!,login.succ@test.com,true,420,STUDENT,false

@@ -1,0 +1,6 @@
+userId,userName,password,email,universityAffiliated,verificationNum,userType,isDepartmentApproved
+1,jsmith,pass123,jsmith@university.ca,TRUE,100234,STUDENT,TRUE
+2,adoe,alpha321,adoe@university.ca,TRUE,100235,STUDENT,TRUE
+3,labtech1,secure1,tech1@lab.ca,TRUE,55012,RESEARCHER,FALSE
+4,proflee,teach789,lee@university.ca,TRUE,22001,FACULTY,FALSE
+5,guest01,guest111,guest@email.com,FALSE,0,GUEST,FALSE

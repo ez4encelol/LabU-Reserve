@@ -1,0 +1,3 @@
+userId,username,password,email,universityAffiliated,verificationNum,userType,isDepartmentApproved
+1,username,Str0ng password!,an email,true,12345,STUDENT,false
+2,username,StronkPass#2345,u4Email,false,12345,GUEST,false

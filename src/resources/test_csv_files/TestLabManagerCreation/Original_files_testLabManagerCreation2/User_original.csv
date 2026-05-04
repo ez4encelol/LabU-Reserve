@@ -1,0 +1,8 @@
+userId,userName,password,email,affiliated,verificationNum,userType
+1,jsmith,pass123,jsmith@university.ca,TRUE,100234,STUDENT
+2,adoe,alpha321,adoe@university.ca,TRUE,100235,STUDENT
+3,labtech1,secure1,tech1@lab.ca,TRUE,55012,RESEARCHER
+4,proflee,teach789,lee@university.ca,TRUE,22001,FACULTY
+5,guest01,guest111,guest@email.com,FALSE,0,GUEST
+6,labmanager1,management1!,labmanager1@gmail.com,TRUE,22,LABMANAGER
+7,headlabcoordinator,abcd1!,headlabcoordinator@gmail.com,TRUE,33,HEADLABCOORDINATOR

@@ -1,0 +1,8 @@
+id,name,description,labLocation,status
+1,Microscope,Optical microscope for samples,Lab A,MAINTENANCE
+2,Centrifuge,Used to separate liquids,Lab B,MAINTENANCE
+3,Spectrometer,Measures light spectra,Lab C,ENABLED
+4,Pipette,Manual liquid handling,Lab A,DISABLED
+5,Beaker Set,Glass beakers of various sizes,Lab B,ENABLED
+6,nametest,desctest,locationtest,MAINTENANCE
+7,Oscilloscope,Rigol DS1054Z Digital Oscilloscope 50 MHz,Las03,DISABLED
