@@ -9,9 +9,9 @@ import model.exceptions.EmailNotUniqueException;
 import model.exceptions.WeakPasswordException;
 import model.systemFacades.LoginAndRegistrationFacade;
 import model.userhierarchy.User;
+
 import javax.swing.*;
 import javax.swing.border.*;
-import javax.xml.crypto.Data;
 
 import java.awt.*;
 import java.awt.event.*;

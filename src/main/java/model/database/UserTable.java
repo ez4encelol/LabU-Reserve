@@ -12,7 +12,6 @@ import com.csvreader.CsvWriter;
 
 import model.UserFactory;
 import model.enums.UserType;
-import model.userhierarchy.UniversityAffiliated;
 import model.userhierarchy.User;
 
 public class UserTable extends Table{
@@ -77,7 +76,6 @@ public class UserTable extends Table{
 				String userName = reader.get("username");
 				String passWord = reader.get("password");
 				String email = reader.get("email");
-				boolean affiliated = Boolean.parseBoolean(reader.get("universityAffiliated"));
 				int verificationNum = Integer.parseInt(reader.get("verificationNum"));
 				UserType userType = convertToEnum(reader.get("userType"));
 				boolean isDepartmentApproved = Boolean.parseBoolean(reader.get("isDepartmentApproved"));

@@ -10,7 +10,6 @@ import model.database.UserTable;
 import model.enums.UserType;
 import model.exceptions.EmailNotUniqueException;
 import model.exceptions.WeakPasswordException;
-import model.userhierarchy.LabManager;
 import model.userhierarchy.User;
 
 //facade for the subsystem of user login and registration
