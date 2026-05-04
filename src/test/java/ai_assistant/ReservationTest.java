@@ -1,28 +1,13 @@
 package ai_assistant;
 
 import static org.junit.jupiter.api.Assertions.*;
-
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInfo;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 import java.time.LocalDateTime;
 
-import model.IdGeneration;
 import model.Reservation;
-import model.database.DatabaseService;
-import model.database.EquipmentTable;
-import model.database.ReservationTable;
-import model.database.UserTable;
 import model.enums.ReservationStatus;
-import model.systemFacades.EquipmentManagementFacade;
-import model.systemFacades.EquipmentReservationFacade;
-import model.systemFacades.LoginAndRegistrationFacade;
+
 
 public class ReservationTest {
 	

@@ -2,28 +2,10 @@ package ai_assistant;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
-
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInfo;
-
 import model.Equipment;
-import model.IdGeneration;
 import model.Sensor;
 import model.SensorObserver;
-import model.database.DatabaseService;
-import model.database.EquipmentTable;
-import model.database.ReservationTable;
-import model.database.UserTable;
-import model.systemFacades.EquipmentManagementFacade;
-import model.systemFacades.EquipmentReservationFacade;
-import model.systemFacades.LoginAndRegistrationFacade;
 
 public class SensorTest {
 

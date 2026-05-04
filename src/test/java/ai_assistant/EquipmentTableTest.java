@@ -19,7 +19,6 @@ import model.database.DatabaseService;
 import model.database.EquipmentTable;
 import model.database.ReservationTable;
 import model.database.UserTable;
-import model.enums.EquipmentStatus;
 import model.systemFacades.EquipmentManagementFacade;
 import model.systemFacades.EquipmentReservationFacade;
 import model.systemFacades.LoginAndRegistrationFacade;

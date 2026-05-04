@@ -1,6 +1,5 @@
 package ai_assistant;
 
-import org.junit.Ignore;
 import org.junit.jupiter.api.*;
 
 import model.database.DatabaseService;
@@ -9,8 +8,6 @@ import model.database.ReservationTable;
 import model.database.UserTable;
 import model.enums.UserType;
 import model.IdGeneration;
-import model.systemFacades.EquipmentManagementFacade;
-import model.systemFacades.EquipmentReservationFacade;
 import model.systemFacades.LoginAndRegistrationFacade;
 
 import static org.junit.jupiter.api.Assertions.*;

@@ -146,7 +146,6 @@ class TestLoginAndRegistrationFacade {
 		String emailBase = "guest_test_"; //avoids EmailNotUniqueException
     	String username = "Guest User";
     	int startId = 3000;
-		UserType gtype = UserType.GUEST;
 
 		//case 1: no upper case (weak)
 		try {

@@ -27,7 +27,6 @@ import model.systemFacades.EquipmentManagementFacade;
 import model.systemFacades.EquipmentReservationFacade;
 import model.systemFacades.LoginAndRegistrationFacade;
 import model.userhierarchy.HeadLabCoordinator;
-import model.userhierarchy.LabManager;
 import model.userhierarchy.User;
 
 //tests the lab manager creation, with the LoginAndRegistrationFacade and other classes
