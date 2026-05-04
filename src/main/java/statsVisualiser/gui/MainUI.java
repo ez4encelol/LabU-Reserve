@@ -109,7 +109,7 @@ public class MainUI extends JFrame {
 		titleLbl.setFont(UITheme.FONT_TITLE);
 		titleLbl.setForeground(UITheme.ACCENT);
 
-		JLabel subtitleLbl = new JLabel("Equipment System");
+		JLabel subtitleLbl = new JLabel("Equipment Reservation System");
 		subtitleLbl.setFont(UITheme.FONT_SMALL);
 		subtitleLbl.setForeground(UITheme.TEXT_MUTED);
 
