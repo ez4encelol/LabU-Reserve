@@ -103,9 +103,9 @@ public class MainUI extends JFrame {
 		JPanel header = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 4));
 		header.setBackground(UITheme.BG_DARK);
 
-		ImageIcon logo = MainUI.loadIcon("/model/assets/YorkULogo.png", 30, 30);
+		ImageIcon logo = MainUI.loadIcon("/model/assets/Logo.png", 40, 40);
 
-		JLabel titleLbl = new JLabel("Lab Reserve", logo, JLabel.LEFT);
+		JLabel titleLbl = new JLabel("LabU Reserve", logo, JLabel.LEFT);
 		titleLbl.setFont(UITheme.FONT_TITLE);
 		titleLbl.setForeground(UITheme.ACCENT);
 
@@ -438,7 +438,6 @@ public class MainUI extends JFrame {
 		bar.setBorder(BorderFactory.createCompoundBorder(
 				BorderFactory.createMatteBorder(0, 0, 1, 0, UITheme.BORDER_CLR),
 				BorderFactory.createEmptyBorder(8, 16, 8, 16)));
-		ImageIcon logo = MainUI.loadIcon("/model/asset/YorkULogo.png", 30, 30);
 
 		JLabel role = new JLabel("LabReserve  —  " + roleText);
 		role.setFont(UITheme.FONT_HEADER);
