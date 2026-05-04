@@ -1,2 +1,2 @@
-# lab-reservation-equipment-system
+# Lab Reservation Equipment System
 
