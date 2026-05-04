@@ -1,6 +1,5 @@
 package model.userhierarchy;
 
-import model.database.UserTable;
 import model.enums.UserType;
 
 //singleton head lab coordinator that has ability to create lab manager accounts

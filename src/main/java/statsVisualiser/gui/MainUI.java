@@ -1,33 +1,20 @@
 package statsVisualiser.gui;
 
-import model.Equipment;
-import model.IdGeneration;
-import model.Reservation;
 import model.database.DatabaseService;
 import model.database.EquipmentTable;
 import model.database.ReservationTable;
 import model.database.UserTable;
-import model.enums.EquipmentStatus;
-import model.enums.ReservationStatus;
 import model.enums.UserType;
 import model.exceptions.EmailNotUniqueException;
 import model.exceptions.WeakPasswordException;
-import model.paymentclasses.CreditPayment;
-import model.paymentclasses.DebitPayment;
-import model.paymentclasses.PaymentStrategy;
-import model.paymentclasses.ResearchGrantPayment;
-import model.systemFacades.EquipmentManagementFacade;
-import model.systemFacades.EquipmentReservationFacade;
 import model.systemFacades.LoginAndRegistrationFacade;
 import model.userhierarchy.User;
-
 import javax.swing.*;
 import javax.swing.border.*;
+import javax.xml.crypto.Data;
+
 import java.awt.*;
 import java.awt.event.*;
-import java.io.*;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Vector;
 
@@ -434,12 +421,12 @@ public class MainUI extends JFrame {
 	// top bar for logout for manager and user (logout button for both so no repeat code)
 	static JPanel topBar(String roleText, ActionListener onLogout) {
 		JPanel bar = new JPanel(new BorderLayout());
-		bar.setBackground(new Color(20, 22, 35));
+		bar.setBackground(new Color(31, 31, 31));
 		bar.setBorder(BorderFactory.createCompoundBorder(
 				BorderFactory.createMatteBorder(0, 0, 1, 0, UITheme.BORDER_CLR),
 				BorderFactory.createEmptyBorder(8, 16, 8, 16)));
 
-		JLabel role = new JLabel("LabReserve  —  " + roleText);
+		JLabel role = new JLabel(roleText);
 		role.setFont(UITheme.FONT_HEADER);
 		role.setForeground(UITheme.ACCENT);
 		bar.add(role, BorderLayout.WEST);

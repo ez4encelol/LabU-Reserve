@@ -1,11 +1,9 @@
 package model.systemFacades;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import model.Equipment;
 import model.IdGeneration;
-import model.Sensor;
 import model.database.EquipmentTable;
 import model.database.ReservationTable;
 import model.database.UserTable;

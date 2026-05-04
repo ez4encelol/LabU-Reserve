@@ -1,10 +1,7 @@
 package model;
 
 import java.time.LocalDateTime;
-import java.util.List;
-
 import model.database.EquipmentTable;
-import model.database.ReservationTable;
 import model.database.UserTable;
 import model.enums.ReservationStatus;
 import model.userhierarchy.User;
@@ -17,7 +14,6 @@ public class Reservation implements SensorObserver{
 
 	private int equipmentId;
 	private int userId;
-	private int paymentStrategyId;
 
 	private ReservationStatus status;
 	private int totalOwed;

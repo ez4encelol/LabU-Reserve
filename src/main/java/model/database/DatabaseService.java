@@ -78,12 +78,12 @@ public class DatabaseService {
 		uDb.setUsers(new HashMap<>());
 	}
 	
-	//removes all the users in the User database, mainly used for testing purposes, to get a fresh user database
+	//removes all the Equipment in the Equipment database, mainly used for testing purposes, to get a fresh equipment database
 	public void removeAllEquipments() {
 		eDb.setEquipment(new HashMap<>());
 	}
 	
-	//removes all the users in the User database, mainly used for testing purposes, to get a fresh user database
+	//removes all the Reservations in the Reservation database, mainly used for testing purposes, to get a fresh reservation database
 	public void removeAllReservations() {
     rDb.setReservations(new HashMap<>());
 	}

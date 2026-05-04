@@ -37,7 +37,6 @@ import model.Reservation;
 import model.database.DatabaseService;
 import model.database.EquipmentTable;
 import model.database.ReservationTable;
-import model.database.UserTable;
 import model.enums.EquipmentStatus;
 import model.enums.ReservationStatus;
 import model.paymentclasses.CreditPayment;
@@ -58,7 +57,7 @@ class UserWindow extends JFrame {
 	ImageIcon revIcon = UITheme.loadIcon("/model/assets/reservationIcon.png", 32, 32);
 
 	UserWindow(User user) {
-		super("LabReserve – " + user.getUsername());
+		super(user.getUsername());
 		this.currentUser = user;
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		setSize(1200, 420);
@@ -69,7 +68,7 @@ class UserWindow extends JFrame {
 
 		JPanel root = new JPanel(new BorderLayout(0, 0));
 		root.setBackground(UITheme.BG_DARK);
-		root.add(MainUI.topBar(user.getUsername() + "  |  $" + user.getHourlyRate() + "/hr",
+		root.add(MainUI.topBar(user.getUsername() + "  |  Reservation Cost: $" + user.getHourlyRate() + "/hr",
 				new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				DatabaseService.getInstance().updateAllTables();
