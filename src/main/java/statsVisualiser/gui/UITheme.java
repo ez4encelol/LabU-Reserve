@@ -14,9 +14,9 @@ import java.util.Vector;
 public class UITheme {
 
 	// colours
-	public static final Color BG_DARK = new Color(30, 33, 48);
-	public static final Color BG_CARD = new Color(40, 44, 60);
-	public static final Color BG_INPUT = new Color(50, 55, 75);
+	public static final Color BG_DARK = new Color(31, 31, 31);
+	public static final Color BG_CARD = new Color(31, 31, 31);
+	public static final Color BG_INPUT = new Color(77, 77, 77);
 	public static final Color ACCENT = new Color(227, 28, 56);
 	public static final Color ACCENT2 = new Color(70, 130, 180);
 	public static final Color BTN_GREEN = new Color(46, 160, 67);
@@ -25,7 +25,7 @@ public class UITheme {
 	public static final Color LIGHT_BLUE = new Color(0, 153, 204);
 	public static final Color TEXT_WHITE = new Color(240, 240, 250);
 	public static final Color TEXT_MUTED = new Color(150, 155, 175);
-	public static final Color BORDER_CLR = new Color(60, 65, 90);
+	public static final Color BORDER_CLR = new Color(31, 31, 31);
 
 	// fonts
 	public static final Font FONT_TITLE = new Font("Segoe UI", Font.BOLD, 22);

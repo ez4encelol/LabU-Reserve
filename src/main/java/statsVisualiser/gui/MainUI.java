@@ -119,7 +119,7 @@ public class MainUI extends JFrame {
 		// tab bar
 		JButton tabLogin = tabButton("Login", true);
 		JButton tabRegister = tabButton("Register", false);
-		JPanel tabBar = new JPanel(new GridLayout(1, 2, 4, 0));
+		JPanel tabBar = new JPanel(new GridLayout(1, 2, 10, 0));
 		tabBar.setBackground(UITheme.BG_DARK);
 		tabBar.setBorder(BorderFactory.createEmptyBorder(8, 0, 8, 0));
 		tabBar.add(tabLogin);
@@ -150,7 +150,7 @@ public class MainUI extends JFrame {
 
 		JTextField lfEmail = darkField();
 		JPasswordField lfPass = darkPassword();
-		JButton btnLogin = accentButton("Login", UITheme.ACCENT2);
+		JButton btnLogin = accentButton("Sign In", UITheme.ACCENT2);
 
 		gc.gridx = 0; gc.gridy = 1; gc.gridwidth = 3;
 		gc.anchor = GridBagConstraints.CENTER; gc.weightx = 1.0;
