@@ -57,7 +57,7 @@ class UserWindow extends JFrame {
 	ImageIcon revIcon = UITheme.loadIcon("/model/assets/reservationIcon.png", 32, 32);
 
 	UserWindow(User user) {
-		super(user.getUsername());
+		super("User Dashboard");
 		this.currentUser = user;
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		setSize(1200, 420);

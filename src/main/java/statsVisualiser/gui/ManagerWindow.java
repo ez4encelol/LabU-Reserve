@@ -32,7 +32,7 @@ class ManagerWindow extends JFrame {
 	private EquipmentManagementFacade mgmtFacade = new EquipmentManagementFacade();
 
 	ManagerWindow() {
-		super("LabReserve – Manager");
+		super("Manager Dashboard");
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		
 		setSize(780, 420);
@@ -46,7 +46,7 @@ class ManagerWindow extends JFrame {
 
 		JPanel root = new JPanel(new BorderLayout(0, 0));
 		root.setBackground(UITheme.BG_DARK);
-		root.add(MainUI.topBar("Manager", new ActionListener() {
+		root.add(MainUI.topBar("Lab Manager", new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				DatabaseService.getInstance().updateAllTables(); // updates when logout
 				dispose();
