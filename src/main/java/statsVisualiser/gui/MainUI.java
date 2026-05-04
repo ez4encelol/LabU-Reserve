@@ -44,7 +44,7 @@ public class MainUI extends JFrame {
 	}
 
 	MainUI() {
-		super("Lab Equipment Reservation System");
+		super("LabU Reserve");
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		setSize(580, 550);
 		setLocationRelativeTo(null);
