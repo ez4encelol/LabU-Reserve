@@ -1,2 +1,2 @@
-# Lab Reservation Equipment System
+# LabU Reserve: An Equipment Reservation System
 
