@@ -35,8 +35,6 @@ import model.Department;
 import model.Equipment;
 import model.Reservation;
 import model.database.DatabaseService;
-import model.database.EquipmentTable;
-import model.database.ReservationTable;
 import model.enums.EquipmentStatus;
 import model.enums.ReservationStatus;
 import model.paymentclasses.CreditPayment;
@@ -49,7 +47,7 @@ import model.userhierarchy.User;
 class UserWindow extends JFrame {
 
 	private User currentUser;
-	private EquipmentReservationFacade resvFacade = new EquipmentReservationFacade();
+	private EquipmentReservationFacade resvFacade = EquipmentReservationFacade.getInstance();
 	private DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 	private ImageIcon eqIcon = MainUI.loadIcon("/model/assets/user.png", 30, 30);
 	private ImageIcon clockIcon = MainUI.loadIcon("/model/assets/clock.png", 35, 35);
@@ -204,7 +202,7 @@ class UserWindow extends JFrame {
 				PaymentStrategy pay = getPayment((String) payBox.getSelectedItem());
 				boolean ok = resvFacade.reserveEquipment(start, end, currentUser, eq, pay);
 				if (ok) {
-					List<Reservation> all = ReservationTable.getInstance().getReservationsAsList();
+					List<Reservation> all = DatabaseService.getInstance().getAllReservations();
 					int newId = all.get(all.size() - 1).getId();
 					UITheme.showPopup(
 							"Reservation confirmed!\n"
@@ -232,7 +230,7 @@ class UserWindow extends JFrame {
 					return; 
 				}
 
-				Reservation r = ReservationTable.getInstance().getReservation(id);
+				Reservation r = DatabaseService.getInstance().getReservation(id);
 
 				if (r == null) { 
 					UITheme.showPopup("Reservation not found.", "Cancel", JOptionPane.ERROR_MESSAGE); 
@@ -278,7 +276,7 @@ class UserWindow extends JFrame {
 					return; 
 				}
 
-				Reservation r = ReservationTable.getInstance().getReservation(id);
+				Reservation r = DatabaseService.getInstance().getReservation(id);
 
 				if (r == null) {
 					UITheme.showPopup("Reservation not found.", "Extend", JOptionPane.ERROR_MESSAGE); 
@@ -363,7 +361,7 @@ class UserWindow extends JFrame {
 
 	private Vector<String> getEquipmentNames() {
 		Vector<String> v = new Vector<>();
-		List<Equipment> equipmentList = EquipmentTable.getInstance().getEquipmentAsList();
+		List<Equipment> equipmentList = DatabaseService.getInstance().getAllEquipment();
 		for (int i = 0; i < equipmentList.size(); i++) {
 			Equipment eq = equipmentList.get(i);
 			v.add(eq.getName());
@@ -374,7 +372,7 @@ class UserWindow extends JFrame {
 		if (name == null) {
 			return null;
 		}
-		List<Equipment> equipmentList = EquipmentTable.getInstance().getEquipmentAsList();
+		List<Equipment> equipmentList = DatabaseService.getInstance().getAllEquipment();
 		for (int i = 0; i < equipmentList.size(); i++) {
 			Equipment eq = equipmentList.get(i);
 			if (eq.getName().equals(name)) {
@@ -402,7 +400,7 @@ class UserWindow extends JFrame {
 	}
 
 	private void showArriveDialog() {
-		List<Reservation> all = ReservationTable.getInstance().getReservationsAsList();
+		List<Reservation> all = DatabaseService.getInstance().getAllReservations();
 		List<Reservation> userActive = new ArrayList<>();
 		for (int i = 0; i < all.size(); i++) {
 			Reservation r = all.get(i);

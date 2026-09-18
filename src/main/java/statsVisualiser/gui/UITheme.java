@@ -41,8 +41,7 @@ public class UITheme {
 
 	// ── Icon loader ─────────────────────────────────────────────────────
 	public static ImageIcon loadIcon(String path, int w, int h) {
-		try {
-			InputStream is = UITheme.class.getResourceAsStream(path);
+		try (InputStream is = UITheme.class.getResourceAsStream(path)) {
 			if (is == null) {
 				return null;
 			}

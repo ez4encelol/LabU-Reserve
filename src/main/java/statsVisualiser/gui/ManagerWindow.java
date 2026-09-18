@@ -24,12 +24,11 @@ import java.awt.event.WindowEvent;
 
 import model.Equipment;
 import model.database.DatabaseService;
-import model.database.EquipmentTable;
 import model.systemFacades.EquipmentManagementFacade;
 
 class ManagerWindow extends JFrame {
 
-	private EquipmentManagementFacade mgmtFacade = new EquipmentManagementFacade();
+	private EquipmentManagementFacade mgmtFacade = EquipmentManagementFacade.getInstance();
 
 	ManagerWindow() {
 		super("Manager Dashboard");
@@ -187,7 +186,7 @@ class ManagerWindow extends JFrame {
 
 	private Vector<String> getEquipmentNames() {
 		Vector<String> v = new Vector<>();
-		List<Equipment> equipmentList = EquipmentTable.getInstance().getEquipmentAsList();
+		List<Equipment> equipmentList = mgmtFacade.getAllEquipment();
 		for (int i = 0; i< equipmentList.size(); i++) {
 			v.add(equipmentList.get(i).getName());
 		}
@@ -204,7 +203,7 @@ class ManagerWindow extends JFrame {
 		if (name == null) {
 			return null;
 		}
-		List<Equipment> equipments = EquipmentTable.getInstance().getEquipmentAsList();
+		List<Equipment> equipments = mgmtFacade.getAllEquipment();
 		for (int i = 0; i < equipments.size(); i++) {
 		    Equipment eq = equipments.get(i);
 		    if (eq.getName().equals(name)) {

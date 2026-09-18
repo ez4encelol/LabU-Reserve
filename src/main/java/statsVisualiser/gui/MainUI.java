@@ -1,9 +1,6 @@
 package statsVisualiser.gui;
 
 import model.database.DatabaseService;
-import model.database.EquipmentTable;
-import model.database.ReservationTable;
-import model.database.UserTable;
 import model.enums.UserType;
 import model.exceptions.EmailNotUniqueException;
 import model.exceptions.WeakPasswordException;
@@ -19,7 +16,7 @@ import java.util.Vector;
 
 public class MainUI extends JFrame {
 
-	private LoginAndRegistrationFacade loginFacade = new LoginAndRegistrationFacade();
+	private LoginAndRegistrationFacade loginFacade = LoginAndRegistrationFacade.getInstance();
 
 	private static MainUI instance;
 	public static MainUI getInstance() {
@@ -42,9 +39,6 @@ public class MainUI extends JFrame {
 			setIconImage(icon.getImage());
 		}
 
-		UserTable.getInstance();
-		EquipmentTable.getInstance();
-		ReservationTable.getInstance();
 		setContentPane(createLoginRegisterPanel());
 		setVisible(true);
 		addWindowListener(new WindowAdapter() {
@@ -240,7 +234,7 @@ public class MainUI extends JFrame {
 				String email = lfEmail.getText().trim();
 				String pass = new String(lfPass.getPassword()).trim();
 
-				List<User> users = UserTable.getInstance().getUsersAsList();
+				List<User> users = DatabaseService.getInstance().getAllUsers();
 				for (int i = 0; i < users.size(); i++) {
 					User u = users.get(i);
 					if (u.getUserType().equals(UserType.LABMANAGER) && u.getEmail().equals(email) && u.getPassword().equals(pass)) {
@@ -284,11 +278,11 @@ public class MainUI extends JFrame {
 				UserType ut = UserType.valueOf(type);
 				try {
 					loginFacade.registerUser(email, username, pass, verNum, ut);
-					List<User> users = UserTable.getInstance().getUsersAsList();
+					List<User> users = DatabaseService.getInstance().getAllUsers();
 					for (int i = 0; i < users.size(); i++) {
 						User u = users.get(i);
 						if (u.getUsername().equals(email)) {
-							UserTable.getInstance().update();
+							DatabaseService.getInstance().updateAllTables();
 							break;
 						}
 					}
@@ -352,10 +346,6 @@ public class MainUI extends JFrame {
 
 	//  Main
 	public static void main(String[] args) {
-		// Optional: smoother fonts on some platforms
-		try {
-			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-		} catch (Exception ignored) {}
-		new MainUI();
+		model.LabUReserveApplication.main(args);
 	}
 }
