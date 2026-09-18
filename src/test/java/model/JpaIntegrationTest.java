@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 import model.Equipment;
+import model.LabUReserveApplication;
 import model.Reservation;
+import model.UserFactory;
 import model.enums.EquipmentStatus;
 import model.enums.ReservationStatus;
 import model.enums.UserType;
