@@ -10,6 +10,8 @@ jobs:
   build-and-test:
     name: Build & Test (Ubuntu)
     runs-on: ubuntu-latest
+    # Docker is pre-installed on ubuntu-latest — Testcontainers
+    # spins up a PostgreSQL 16 container for the integration tests.
 
     steps:
       - name: Checkout code
@@ -38,8 +40,10 @@ jobs:
             target/surefire-reports/*.xml
 
   test-on-windows:
-    name: Build & Test (Windows)
+    name: Build & Test (Windows — unit tests only)
     runs-on: windows-latest
+    # Testcontainers tests are auto-skipped on Windows if Docker
+    # is unavailable (disabledWithoutDocker = true in JpaIntegrationTest).
 
     steps:
       - name: Checkout code

@@ -5,6 +5,11 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.test.context.DynamicPropertyRegistry;
+import org.springframework.test.context.DynamicPropertySource;
+import org.testcontainers.containers.PostgreSQLContainer;
+import org.testcontainers.junit.jupiter.Container;
+import org.testcontainers.junit.jupiter.Testcontainers;
 
 import model.enums.EquipmentStatus;
 import model.enums.ReservationStatus;
@@ -21,13 +26,42 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- * Integration test verifying the Spring Boot + H2 + Flyway + JPA stack.
- * Confirms that Flyway migrations run, entities persist correctly,
- * and repositories return expected results.
+ * Integration test verifying the Spring Boot + PostgreSQL + Flyway + JPA stack.
+ * Uses Testcontainers to spin up a real PostgreSQL 16 instance for
+ * database-portability verification (mirrors production).
+ *
+ * Tests are skipped automatically if Docker is unavailable
+ * (disabledWithoutDocker = true).
+ *
+ * @see <a href="https://testcontainers.com">Testcontainers documentation</a>
  */
+@Testcontainers(disabledWithoutDocker = true)
 @SpringBootTest(classes = LabUReserveApplication.class)
 @Transactional
 class JpaIntegrationTest {
+
+    @Container
+    static final PostgreSQLContainer<?> postgres =
+        new PostgreSQLContainer<>("postgres:16")
+            .withDatabaseName("labureserve")
+            .withUsername("labureserve")
+            .withPassword("labureserve");
+
+    /**
+     * Override datasource and Hibernate properties to point at the
+     * Testcontainers PostgreSQL container instead of any properties
+     * from application.properties.
+     */
+    @DynamicPropertySource
+    static void configureProperties(DynamicPropertyRegistry registry) {
+        registry.add("spring.datasource.url", postgres::getJdbcUrl);
+        registry.add("spring.datasource.driver-class-name", postgres::getDriverClassName);
+        registry.add("spring.datasource.username", postgres::getUsername);
+        registry.add("spring.datasource.password", postgres::getPassword);
+        registry.add("spring.flyway.url", postgres::getJdbcUrl);
+        registry.add("spring.jpa.properties.hibernate.dialect",
+            () -> "org.hibernate.dialect.PostgreSQLDialect");
+    }
 
     @Autowired EquipmentRepository equipmentRepository;
     @Autowired UserRepository userRepository;
