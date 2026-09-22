@@ -53,13 +53,3 @@ java -jar target/lab-reservation-equipment-system-1.0-SNAPSHOT.jar
 ./mvnw clean test -Pci
 ```
 
-### CI/CD
-
-This project uses [GitHub Actions](https://github.com/ez4encelol/LabU-Reserve/actions) for CI. The workflow runs on every push to `main`:
-
-1. **Build & Test (Ubuntu)** — Full test suite with Testcontainers PostgreSQL
-2. **Build & Test (Windows)** — Unit tests only (Testcontainers auto-skipped without Docker)
-3. **Package JAR** — Builds the JAR artifact
-4. **Coverage & Mutation** — JaCoCo + PIT mutation testing
-
-To trigger a manual run: **Actions tab** → select "CI/CD" → **Run workflow** dropdown → Run workflow.
