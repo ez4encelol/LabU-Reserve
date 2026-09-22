@@ -1,141 +1,180 @@
 package model;
 
 import java.time.LocalDateTime;
-import model.database.EquipmentTable;
-import model.database.UserTable;
+import javax.persistence.*;
 import model.enums.ReservationStatus;
 import model.userhierarchy.User;
 
-public class Reservation implements SensorObserver{
+/**
+ * JPA entity for equipment reservations.
+ * Uses {@code @ManyToOne} relationships to Equipment and User
+ * instead of raw integer foreign keys.
+ */
+@Entity
+@Table(name = "reservations")
+@Access(AccessType.FIELD)
+public class Reservation implements SensorObserver {
 
-	private int id;
-	private LocalDateTime startTime;
-	private LocalDateTime endTime;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
 
-	private int equipmentId;
-	private int userId;
+    private LocalDateTime startTime;
+    private LocalDateTime endTime;
 
-	private ReservationStatus status;
-	private int totalOwed;
-	private int depositAmount;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "equipment_id")
+    private Equipment equipment;
 
-	public Reservation(int id, LocalDateTime startTime, LocalDateTime endTime, int userId, int equipmentId) {
-		this.id = id;
-		this.startTime = startTime;
-		this.endTime = endTime;
-		this.userId = userId;
-		this.equipmentId = equipmentId;
-	}
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
 
-	public int getId() {
-		return id;
-	}
+    @Enumerated(EnumType.STRING)
+    private ReservationStatus status;
 
-	public void setId(int id) {
-		this.id = id;
-	}
+    private int totalOwed;
+    private int depositAmount;
 
-	public LocalDateTime getStartTime() {
-		return this.startTime;
-	}
+    /** JPA no-arg constructor */
+    protected Reservation() {}
 
-	public void setStartTime(LocalDateTime startTime) {
-		this.startTime = startTime;
-	}
+    /** Constructor using entity references (preferred for JPA). */
+    public Reservation(LocalDateTime startTime, LocalDateTime endTime, User user, Equipment equipment) {
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.user = user;
+        this.equipment = equipment;
+    }
 
-	public LocalDateTime getEndTime() {
-		return this.endTime;
-	}
+    /** Constructor with explicit ID — for programmatic creation with known ID. */
+    public Reservation(int id, LocalDateTime startTime, LocalDateTime endTime, User user, Equipment equipment) {
+        this.id = id;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.user = user;
+        this.equipment = equipment;
+    }
 
-	public void setEndTime(LocalDateTime endTime) {
-		this.endTime = endTime;
-	}
+    /** @deprecated Use {@link #Reservation(LocalDateTime, LocalDateTime, User, Equipment)}
+     *  — the int-ID constructor cannot resolve entity references without a repository. */
+    @Deprecated
+    public Reservation(int id, LocalDateTime startTime, LocalDateTime endTime, int userId, int equipmentId) {
+        this.id = id;
+        this.startTime = startTime;
+        this.endTime = endTime;
+    }
 
-	public int getEquipmentId() {
-		return this.equipmentId;
-	}
+    public int getId() {
+        return id;
+    }
 
-	public void setEquipmentId(int equipmentId) {
-		this.equipmentId = equipmentId;
-	}
+    public void setId(int id) {
+        this.id = id;
+    }
 
-	public int getUserId() {
-		return this.userId;
-	}
+    public LocalDateTime getStartTime() {
+        return this.startTime;
+    }
 
-	public void setUserId(int userId) {
-		this.userId = userId;
-	}
+    public void setStartTime(LocalDateTime startTime) {
+        this.startTime = startTime;
+    }
 
-	public ReservationStatus getStatus() {
-		return this.status;
-	}
+    public LocalDateTime getEndTime() {
+        return this.endTime;
+    }
 
-	public void setStatus(ReservationStatus status) {
-		this.status = status;
-	}
+    public void setEndTime(LocalDateTime endTime) {
+        this.endTime = endTime;
+    }
 
-	public int getTotalOwed() {
-		return this.totalOwed;
-	}
+    public Equipment getEquipment() {
+        return this.equipment;
+    }
 
-	public void setTotalOwed(int totalOwed) {
-		this.totalOwed = totalOwed;
-	}
-	
-	public void setDepositAmount(int depositAmount) {
-		this.depositAmount=depositAmount;
-	}
+    public void setEquipment(Equipment equipment) {
+        this.equipment = equipment;
+    }
 
-	public int getDepositAmount() {
-		return this.depositAmount;
-	}
+    public User getUser() {
+        return this.user;
+    }
 
-	public void cancelReservation() {
-		status = ReservationStatus.CANCELLED;
-	}
+    public void setUser(User user) {
+        this.user = user;
+    }
 
-	public void extendReservation(int hours) {
-		totalOwed+=hours*UserTable.getInstance().getUser(userId).getHourlyRate();
-		endTime = endTime.plusHours(hours);
-	}
-	public User getUser() {
-	    return UserTable.getInstance().getUser(userId);
-	}
-	
-	public Equipment getEquipment() {
-		return EquipmentTable.getInstance().getEquipment(equipmentId);
-	}
-	
-	@Override
-	public void update(Sensor sensor, String updateMessage) {
-		/*if there is an arrival within 20 minutes after the start time, and the reservation is ACTIVE,
-		 *(i.e not cancelled or such) then update status to ARRIVED
-		 */
-		if(updateMessage.equals("arrive") && status==ReservationStatus.ACTIVE) {
-			LocalDateTime currentTime=LocalDateTime.now();
-			if(currentTime.isAfter(startTime) && currentTime.isBefore(startTime.plusMinutes(20))) {
-				status=ReservationStatus.ARRIVED;
-				//subtract the deposit from the total amount owed
-				if(totalOwed-depositAmount>=0) {
-					totalOwed-=depositAmount;
-				}
-				else {
-					totalOwed=0;
-				}
-			}
-		}
-	}
+    @Transient
+    public int getEquipmentId() {
+        return equipment != null ? equipment.getId() : 0;
+    }
 
-	public String toString() {
-		return String.format("%s %s %s %s %s %s %s %s", 
-				String.valueOf(id), 
-				startTime.toString(), 
-				endTime.toString(), 
-				String.valueOf(equipmentId),
-				String.valueOf(userId), 
-				status.toString(),
-				String.valueOf(totalOwed),
-				String.valueOf(depositAmount));
-	}
+    @Transient
+    public int getUserId() {
+        return user != null ? user.getId() : 0;
+    }
+
+    public ReservationStatus getStatus() {
+        return this.status;
+    }
+
+    public void setStatus(ReservationStatus status) {
+        this.status = status;
+    }
+
+    public int getTotalOwed() {
+        return this.totalOwed;
+    }
+
+    public void setTotalOwed(int totalOwed) {
+        this.totalOwed = totalOwed;
+    }
+
+    public void setDepositAmount(int depositAmount) {
+        this.depositAmount = depositAmount;
+    }
+
+    public int getDepositAmount() {
+        return this.depositAmount;
+    }
+
+    public void cancelReservation() {
+        status = ReservationStatus.CANCELLED;
+    }
+
+    public void extendReservation(int hours) {
+        if (user != null) {
+            totalOwed += hours * user.getHourlyRate();
+        }
+        endTime = endTime.plusHours(hours);
+    }
+
+    @Override
+    public void update(Sensor sensor, String updateMessage) {
+        if (updateMessage.equals("arrive") && status == ReservationStatus.ACTIVE) {
+            LocalDateTime currentTime = LocalDateTime.now();
+            if (currentTime.isAfter(startTime) && currentTime.isBefore(startTime.plusMinutes(20))) {
+                status = ReservationStatus.ARRIVED;
+                if (totalOwed - depositAmount >= 0) {
+                    totalOwed -= depositAmount;
+                } else {
+                    totalOwed = 0;
+                }
+            }
+        }
+    }
+
+    @Override
+    public String toString() {
+        return String.format("%s %s %s %s %s %s %s %s",
+                id,
+                startTime.toString(),
+                endTime.toString(),
+                getEquipmentId(),
+                getUserId(),
+                status.toString(),
+                totalOwed,
+                depositAmount);
+    }
 }

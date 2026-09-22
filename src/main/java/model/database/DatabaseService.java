@@ -1,96 +1,112 @@
 package model.database;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import model.Equipment;
 import model.Reservation;
 import model.userhierarchy.User;
+import model.repository.EquipmentRepository;
+import model.repository.ReservationRepository;
+import model.repository.UserRepository;
 
-//service to make complex database queries, like getting the reservations made on an equipment for example
+import java.util.List;
+
+/**
+ * Service for cross-table database queries (e.g. reservations for an equipment,
+ * users by email). Replaces the old CSV-backed singleton.
+ */
+@Service
+@Transactional(readOnly = true)
 public class DatabaseService {
-	private static DatabaseService instance;
-	
-	private EquipmentTable eDb;
-	private UserTable uDb;
-	private ReservationTable rDb;
-	
-	private DatabaseService() {
-		eDb=EquipmentTable.getInstance();
-		uDb=UserTable.getInstance();
-		rDb=ReservationTable.getInstance();
-	}
-	
-	public static DatabaseService getInstance() {
-		if(instance==null) {
-			instance=new DatabaseService();
-		}
-		return instance;
-	}
-	
-	//finds all the reservations associated with this equipment, then returns a list of those reservations
-	public List<Reservation> getEquipmentReservations(Equipment equipment){
-		List<Reservation> reservations=new ArrayList<>();
-		rDb=ReservationTable.getInstance();
-		List<Reservation> allReservations = rDb.getReservationsAsList();
-		for(Reservation r : allReservations) {
-			if(r.getEquipmentId()==equipment.getId()) {
-				reservations.add(r);
-			}
-		}
-		return reservations;
-	}
-	
-	//returns null if no user found
-	public User findUser(String email) {
-		List<User> users=uDb.getUsersAsList();
-		for(User u : users) {
-			if(u.getEmail().equals(email)) {
-				return u;
-			}
-		}
-		return null; //if no user found, return null
-	}
-	
-	//returns all of the reservations from a user
-	public List<Reservation> getUserReservations(User u){
-		List<Reservation> reservations=rDb.getReservationsAsList();
-		List<Reservation> userReservations=new ArrayList<>();
-		for(Reservation r: reservations) {
-			if(r.getUserId()==u.getId()) {
-				userReservations.add(r);
-			}
-		}
-		return userReservations;
-		
-	}
-	
-	//update all of the tables right before closing the program
-	public void updateAllTables() {
-		eDb.update();
-		uDb.update();
-		rDb.update();
-	}
-	
-	//removes all the users in the User database, mainly used for testing purposes, to get a fresh user database
-	public void removeAllUsers() {
-		uDb.setUsers(new HashMap<>());
-	}
-	
-	//removes all the Equipment in the Equipment database, mainly used for testing purposes, to get a fresh equipment database
-	public void removeAllEquipments() {
-		eDb.setEquipment(new HashMap<>());
-	}
-	
-	//removes all the Reservations in the Reservation database, mainly used for testing purposes, to get a fresh reservation database
-	public void removeAllReservations() {
-    rDb.setReservations(new HashMap<>());
-	}
-	
-	//reset and set the instance to null for resetting for testing purposes
-	public static void resetToNull() {
-		instance=null;
-	}
-		
+
+    private final EquipmentRepository equipmentRepository;
+    private final UserRepository userRepository;
+    private final ReservationRepository reservationRepository;
+
+    public DatabaseService(EquipmentRepository equipmentRepository,
+                           UserRepository userRepository,
+                           ReservationRepository reservationRepository) {
+        this.equipmentRepository = equipmentRepository;
+        this.userRepository = userRepository;
+        this.reservationRepository = reservationRepository;
+    }
+
+    /** Delegate to Spring for singleton-style access from GUI classes. */
+    public static DatabaseService getInstance() {
+        return model.SpringContext.getBean(DatabaseService.class);
+    }
+
+    /** Finds all reservations associated with this equipment. */
+    public List<Reservation> getEquipmentReservations(Equipment equipment) {
+        return reservationRepository.findByEquipment(equipment);
+    }
+
+    /** Returns the user with the given email, or null if not found. */
+    public User findUser(String email) {
+        return userRepository.findByEmail(email).orElse(null);
+    }
+
+    /** Returns all reservations for a particular user. */
+    public List<Reservation> getUserReservations(User u) {
+        return reservationRepository.findByUserId(u.getId());
+    }
+
+    /** Returns all equipment records. */
+    public List<Equipment> getAllEquipment() {
+        return equipmentRepository.findAll();
+    }
+
+    /** Returns all user records. */
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
+    }
+
+    /** Returns all reservation records. */
+    public List<Reservation> getAllReservations() {
+        return reservationRepository.findAll();
+    }
+
+    /** Returns the equipment with the given ID, or null. */
+    public Equipment getEquipment(int id) {
+        return equipmentRepository.findById(id).orElse(null);
+    }
+
+    /** Returns the user with the given ID, or null. */
+    public User getUser(int id) {
+        return userRepository.findById(id).orElse(null);
+    }
+
+    /** Returns the reservation with the given ID, or null. */
+    public Reservation getReservation(int id) {
+        return reservationRepository.findById(id).orElse(null);
+    }
+
+    /** Flush pending writes (JPA auto-flushes at commit, so this is effectively a no-op). */
+    @Transactional
+    public void updateAllTables() {
+        // JPA/Hibernate auto-flushes dirty entities at transaction commit.
+        // No manual CSV write needed.
+    }
+
+    // --- methods retained for test backward compatibility ---
+
+    @Transactional
+    public void removeAllUsers() {
+        userRepository.deleteAll();
+    }
+
+    @Transactional
+    public void removeAllEquipments() {
+        equipmentRepository.deleteAll();
+    }
+
+    @Transactional
+    public void removeAllReservations() {
+        reservationRepository.deleteAll();
+    }
+
+    public static void resetToNull() {
+        // No-op — Spring manages the bean lifecycle
+    }
 }
