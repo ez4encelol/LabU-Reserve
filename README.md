@@ -2,7 +2,7 @@
 
 # LabU Reserve
 
-[![CI](https://github.com/danial-hermes/lab-reservation-equipment-system/actions/workflows/ci.yml/badge.svg)](https://github.com/danial-hermes/lab-reservation-equipment-system/actions/workflows/ci.yml)
+[![CI](https://github.com/ez4encelol/LabU-Reserve/actions/workflows/ci.yml/badge.svg)](https://github.com/ez4encelol/LabU-Reserve/actions/workflows/ci.yml)
 
 LabU Reserve is a university laboratory equipment booking and management system which allows students, researchers, faculty, and lab managers to reserve equipment, manage usage, and automate operational policies such as approvals, deposits, and arrival tracking.
 
