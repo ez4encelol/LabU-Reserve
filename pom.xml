@@ -51,7 +51,6 @@
                     <artifactId>spring-boot-starter-web</artifactId>
                 </dependency>
 
-        <!-- H2 removed — tests use Testcontainers PostgreSQL -->
 
         <!-- PostgreSQL driver (runtime — production database) -->
         <dependency>
@@ -124,6 +123,19 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
                     <mainClass>model.LabUReserveApplication</mainClass>
+                </configuration>
+            </plugin>
+
+            <!-- Ensure Docker API version 1.41 for Docker daemon 29.8.0
+                 (docker-java 3.4.0 defaults to v1.32 which daemon rejects).
+                 Replaces ~/.docker-java.properties so project is self-contained. -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <systemPropertyVariables>
+                        <api.version>1.41</api.version>
+                    </systemPropertyVariables>
                 </configuration>
             </plugin>
 
