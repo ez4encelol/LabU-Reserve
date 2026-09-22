@@ -28,7 +28,7 @@ jobs:
         run: chmod +x ./mvnw
 
       - name: Build and run tests
-        run: ./mvnw clean test -B
+        run: ./mvnw clean test -Pci -B
 
       - name: Upload test results
         if: always()
@@ -44,6 +44,7 @@ jobs:
     runs-on: windows-latest
     # Testcontainers tests are auto-skipped on Windows if Docker
     # is unavailable (disabledWithoutDocker = true in JpaIntegrationTest).
+    # JpaLocalIntegrationTest is excluded via the 'ci' Maven profile.
 
     steps:
       - name: Checkout code
@@ -57,7 +58,7 @@ jobs:
           cache: maven
 
       - name: Build and run tests
-        run: ./mvnw.cmd clean test -B
+        run: ./mvnw.cmd clean test -Pci -B
 
   package:
     name: Package JAR
@@ -106,11 +107,14 @@ jobs:
       - name: Make Maven Wrapper executable
         run: chmod +x ./mvnw
 
+      - name: Run tests (generates JaCoCo data)
+        run: ./mvnw test -Pci -B
+
       - name: Generate JaCoCo coverage report
         run: ./mvnw jacoco:report -B
 
       - name: Run PIT mutation testing
-        run: ./mvnw org.pitest:pitest-maven:mutationCoverage -B
+        run: ./mvnw org.pitest:pitest-maven:mutationCoverage -Pci -B
 
       - name: Upload coverage reports
         if: always()
