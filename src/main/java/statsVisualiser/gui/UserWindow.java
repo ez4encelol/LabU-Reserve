@@ -131,7 +131,7 @@ class UserWindow extends JFrame {
 		tfHours.setToolTipText("Hours");
 		JButton btnCancel = MainUI.accentButton("Cancel Reservation", UITheme.BTN_RED);
 		JButton btnExtend = MainUI.accentButton("Extend", UITheme.BTN_GREEN);
-		JButton btnAvailReservation = MainUI.accentButton("Available Reservation", UITheme.BTN_GREEN);
+		JButton btnAvailReservation = MainUI.accentButton("Available Reservations", UITheme.BTN_GREEN);
 		JButton btnArrive = MainUI.accentButton("Arrive at Reservation", UITheme.BTN_GREEN);
 		JButton btnDeptApproval = MainUI.accentButton("Get Department Approval", UITheme.BTN_ORANGE);
 
@@ -159,14 +159,14 @@ class UserWindow extends JFrame {
 
 		gridBox.gridx=4; gridBox.weightx=0.03; card.add(MainUI.iconLabel(clockIcon), gridBox);
 		gridBox.gridx=5; gridBox.weightx=0.15; card.add(MainUI.fieldRow("Extend by (hrs)", tfHours), gridBox);
-		gridBox.gridx=6; gridBox.weightx=0.1;  card.add(btnExtend, gridBox);
-		gridBox.gridx=7; gridBox.weightx=1; card.add(btnAvailReservation, gridBox);
+		gridBox.gridx=6; gridBox.weightx=0.15;  card.add(btnExtend, gridBox);
+		gridBox.gridx=7; gridBox.weightx=0.25; card.add(btnAvailReservation, gridBox);
 
 		// Row 3 – arrive, department approval
 		gridBox.gridx=0; gridBox.gridy=2; gridBox.weightx=0.03; card.add(MainUI.iconLabel(eqIcon), gridBox);
 		gridBox.gridx=1; gridBox.gridwidth=2; gridBox.weightx=0.15; card.add(btnArrive, gridBox);
-		gridBox.gridx=3; gridBox.gridwidth=2; gridBox.weightx=0.2; card.add(btnDeptApproval, gridBox);
-		
+		gridBox.gridx=3; gridBox.gridwidth=2; gridBox.weightx=0.25; card.add(btnDeptApproval, gridBox);
+
 		gridBox.gridwidth=1;
 
 		outer.add(card, BorderLayout.CENTER);
