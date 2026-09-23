@@ -83,8 +83,8 @@ class UserWindow extends JFrame {
 				int result = JOptionPane.showConfirmDialog(UserWindow.this, "Are you sure you want to exit?", "Confirm Exit", JOptionPane.YES_NO_OPTION);
 				if (result == JOptionPane.YES_OPTION) {
 					DatabaseService.getInstance().updateAllTables(); //updates when close manager window
-					dispose();
-				}
+					System.exit(0);
+					}
 			}
 		});
 	}
@@ -135,7 +135,7 @@ class UserWindow extends JFrame {
 		JButton btnArrive = MainUI.accentButton("Arrive at Reservation", UITheme.BTN_GREEN);
 		JButton btnDeptApproval = MainUI.accentButton("Get Department Approval", UITheme.BTN_ORANGE);
 
-		// Row 0 – equipment, start, end, payment, reserve button
+		// Row 1 – equipment, start, end, payment, reserve button
 		gridBox.gridx=0; gridBox.gridy=0; gridBox.weightx=0.03; card.add(MainUI.iconLabel(labEquipIcon), gridBox);
 		gridBox.gridx=1; gridBox.weightx=0.22; card.add(MainUI.fieldRow("Equipment", eqBox), gridBox);
 		gridBox.gridx=2; gridBox.weightx=0.03; card.add(MainUI.iconLabel(clockIcon), gridBox);
@@ -150,25 +150,23 @@ class UserWindow extends JFrame {
 
 		gridBox.gridx=9; gridBox.weightx=0.03; card.add(btnReserve, gridBox);
 
-		// Row 1 – reservation id, cancel, extend hours, extend button
+		// Row 2 – reservation id, cancel, extend hours, extend button
 		gridBox.gridx=0; gridBox.gridy=1; gridBox.weightx=0.03; card.add(MainUI.iconLabel(eqIcon), gridBox);
 		gridBox.gridx=1; gridBox.weightx=0.15; card.add(MainUI.fieldRow("Reservation ID", tfResvId), gridBox);
 		gridBox.gridx=2; gridBox.gridwidth=2; gridBox.weightx=0.3; card.add(btnCancel, gridBox);
+
 		gridBox.gridwidth=1;
+
 		gridBox.gridx=4; gridBox.weightx=0.03; card.add(MainUI.iconLabel(clockIcon), gridBox);
 		gridBox.gridx=5; gridBox.weightx=0.15; card.add(MainUI.fieldRow("Extend by (hrs)", tfHours), gridBox);
 		gridBox.gridx=6; gridBox.weightx=0.1;  card.add(btnExtend, gridBox);
-		gridBox.gridx=7; gridBox.weightx=0.1;  card.add(btnAvailReservation, gridBox);
+		gridBox.gridx=7; gridBox.weightx=1; card.add(btnAvailReservation, gridBox);
 
-
-		gridBox.gridx=0; gridBox.gridy=2; 
-		gridBox.weightx=0.03; card.add(MainUI.iconLabel(eqIcon), gridBox);
-
-		gridBox.gridx=1; gridBox.gridwidth=2; gridBox.weightx=0.25; 
-		card.add(btnArrive, gridBox);
-
-		gridBox.gridx=3; gridBox.gridwidth=3; gridBox.weightx=0.35;
-		card.add(btnDeptApproval, gridBox);
+		// Row 3 – arrive, department approval
+		gridBox.gridx=0; gridBox.gridy=2; gridBox.weightx=0.03; card.add(MainUI.iconLabel(eqIcon), gridBox);
+		gridBox.gridx=1; gridBox.gridwidth=2; gridBox.weightx=0.15; card.add(btnArrive, gridBox);
+		gridBox.gridx=3; gridBox.gridwidth=2; gridBox.weightx=0.2; card.add(btnDeptApproval, gridBox);
+		
 		gridBox.gridwidth=1;
 
 		outer.add(card, BorderLayout.CENTER);

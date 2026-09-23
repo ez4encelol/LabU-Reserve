@@ -66,7 +66,7 @@ class ManagerWindow extends JFrame {
 		        );
 		        if (result == JOptionPane.YES_OPTION) {
 		        	DatabaseService.getInstance().updateAllTables(); //updates when close manager window
-		            dispose();
+		        	System.exit(0);
 		        }
 		    }
 		});

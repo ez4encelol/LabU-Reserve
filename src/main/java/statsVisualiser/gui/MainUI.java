@@ -52,8 +52,8 @@ public class MainUI extends JFrame {
 						);
 				if (result == JOptionPane.YES_OPTION) {
 					DatabaseService.getInstance().updateAllTables();
-					dispose();
-				}
+					System.exit(0);
+					}
 			}
 		});
 	}
