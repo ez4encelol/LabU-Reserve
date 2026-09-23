@@ -10,7 +10,7 @@ LabU Reserve is a university laboratory equipment booking and management system 
 
 - **Java** 26 (compiled with `--release 11`)
 - **Maven** build system
-- **Swing** desktop UI (dark glassmorphism theme)
+- **Swing/AWT** desktop GUI 
 - **Hibernate/JPA** with **Flyway** migrations
 - **PostgreSQL** (local dev + production)
 - **JUnit 5** testing (48 tests: 40 unit + 8 integration)
