@@ -14,7 +14,7 @@ LabU Reserve is a university laboratory equipment booking and management system 
 - **Hibernate/JPA** with **Flyway** migrations
 - **PostgreSQL** (local dev + production)
 - **JUnit 5** testing (48 tests: 40 unit + 8 integration)
-- **JaCoCo** + **PIT** code quality
+- **JaCoCo**/**PIT** automated and mutation testing
 - **GitHub Actions** CI/CD
 
 ## Getting Started
