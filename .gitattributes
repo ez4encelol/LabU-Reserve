@@ -1,2 +1,5 @@
 # Auto detect text files and perform LF normalization
 * text=auto
+
+# .mvn/jvm.config must use LF — CRLF breaks Maven JVM options on Windows
+.mvn/jvm.config eol=lf
