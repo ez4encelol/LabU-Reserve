@@ -52,7 +52,7 @@ java -jar target/lab-reservation-equipment-system-1.0-SNAPSHOT.jar
 # CI-compatible mode (44 tests — excludes local PostgreSQL test)
 ./mvnw clean test -Pci
 ```
-
+# Demo
 <img width="561" height="628" alt="login" src="https://github.com/user-attachments/assets/d6de2a8b-9297-4b40-b371-70be211255f9" />
 <img width="1364" height="406" alt="user" src="https://github.com/user-attachments/assets/f404b33d-6c09-47b8-b0f3-109c0aea5225" />
 <img width="758" height="407" alt="manager" src="https://github.com/user-attachments/assets/56c018d1-35b4-4424-bf95-4f88d323016c" />
