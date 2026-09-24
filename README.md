@@ -21,7 +21,7 @@ LabU Reserve is a university laboratory equipment booking and management system 
 
 ### Prerequisites
 - **Java JDK 26** — [Download Temurin](https://adoptium.net/)
-- **PostgreSQL 18.6** (or any PostgreSQL 12+) — [Download](https://www.postgresql.org/download/)
+- **PostgreSQL 18.6** — [Download](https://www.postgresql.org/download/)
 - **Docker Desktop** (only for running Testcontainers integration tests; 40 unit tests work without it)
 
 ### 1. Set Up the Database
